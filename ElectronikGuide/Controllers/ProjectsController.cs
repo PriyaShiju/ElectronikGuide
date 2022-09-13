@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using ElectronikGuide.Models;
 //using ElectronikGuide.Interface;
 using ElectronikGuide.Controllers;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace ElectronikGuide.Controllers
 {
@@ -17,6 +19,9 @@ namespace ElectronikGuide.Controllers
     [ApiController]
     public class ProjectsController : ControllerBase
     {
+        private readonly ILogger<ProjectsController> _logger;
+        private readonly IMemoryCache _memcache;
+
         public List<Project> Projects = new List<Project>()
         {
             new Project {ProjectId = 1 ,ProjectTitle="Ohmlaw", Description="Ohms law to measure current" },
@@ -25,10 +30,11 @@ namespace ElectronikGuide.Controllers
         //private readonly IElectronikRepository Projects = new ElectronikRepository();
 
 
-        //[HttpGet]
+        [HttpGet]
         public ActionResult<IEnumerable<Project>> GetAllProjects()
         {
             //return Projects.GetAllProjects();
+            //_logger.LogWarning("Found Records");
             return Projects;
         }
 
